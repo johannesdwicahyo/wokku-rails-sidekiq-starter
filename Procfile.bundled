@@ -1,0 +1,9 @@
+# foreman reads this file. It runs BOTH processes inside the same
+# container, side-by-side. Crashes in one will restart the whole
+# container — acceptable tradeoff for the slot saving.
+#
+# To split them back into separate Dokku containers (2 slots, full
+# isolation), move these entries to Procfile and remove the
+# `bundle exec foreman` line.
+rails:   bundle exec rails server -p $PORT
+sidekiq: bundle exec sidekiq -C config/sidekiq.yml
